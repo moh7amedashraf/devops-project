@@ -1,0 +1,23 @@
+name: CD Dev
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure kubeconfig
+      run: |
+        mkdir ~/.kube
+        echo "${{ secrets.KUBECONFIG_DEV }}" > ~/.kube/config
+
+    - name: Deploy via Helm
+      run: |
+        helm upgrade --install fullstack ./helm/fullstack-chart \
+          --set frontend.image=${{ secrets.REGISTRY }}/frontend:${{ github.sha }} \
+          --set backend.image=${{ secrets.REGISTRY }}/backend:${{ github.sha }}
