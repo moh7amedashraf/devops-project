@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fullstack DevOps Example</title>
+  </head>
+  <body>
+    <h1>Fullstack DevOps Project</h1>
+    <p id="api-response">Loading API...</p>
+
+    <script>
+      fetch("/api/hello")
+        .then(r => r.json())
+        .then(d => document.getElementById("api-response").innerText = d.message)
+        .catch(err => console.error(err));
+    </script>
+  </body>
+</html>
