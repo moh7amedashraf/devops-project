@@ -1,0 +1,21 @@
+name: CD Prod
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Kubeconfig for Prod
+      run: |
+        aws eks update-kubeconfig --name prod-cluster
+
+    - name: Helm Deploy
+      run: |
+        helm upgrade --install fullstack ./helm/fullstack-chart \
+          --set frontend.image=${{ secrets.REGISTRY }}/frontend:${{ github.sha }} \
+          --set backend.image=${{ secrets.REGISTRY }}/backend:${{ github.sha }}
