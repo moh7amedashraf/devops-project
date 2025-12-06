@@ -1,0 +1,11 @@
+frontend:
+  image: "your-registry/frontend:latest"
+  replicas: 2
+
+backend:
+  image: "your-registry/backend:latest"
+  replicas: 2
+
+service:
+  type: ClusterIP
+  port: 80
