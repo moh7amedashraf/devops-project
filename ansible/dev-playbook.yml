@@ -1,0 +1,9 @@
+- name: Dev environment setup
+  hosts: localhost
+  become: yes
+
+  roles:
+    - docker
+    - kubectl
+    - kind
+    - helm
