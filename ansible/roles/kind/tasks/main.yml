@@ -1,0 +1,9 @@
+- name: Install kind
+  get_url:
+    url: https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
+    dest: /usr/local/bin/kind
+    mode: 0755
+
+- name: Create dev cluster
+  command: kind create cluster --name dev-cluster
+  ignore_errors: yes
