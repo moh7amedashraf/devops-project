@@ -1,0 +1,13 @@
+- name: Install helm
+  get_url:
+    url: https://get.helm.sh/helm-v3.14.0-linux-amd64.tar.gz
+    dest: /tmp/helm.tar.gz
+
+- name: Extract helm
+  unarchive:
+    src: /tmp/helm.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: Move helm
+  command: mv /tmp/linux-amd64/helm /usr/local/bin/helm
